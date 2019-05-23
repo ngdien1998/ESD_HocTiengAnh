@@ -95,7 +95,7 @@ namespace ESD_HocTiengAnh.Controllers
 
         public IActionResult Game([FromRoute(Name = "id")] int idChuDe)
         {
-            var cauHoi = CauHoiHinhAnh.Data.ShuffleTake(10);
+            var cauHoi = CauHoiHinhAnh.Data.FindAll(e => e.IdChuDe == idChuDe).ShuffleTake(10);
             HttpContext.Session.Set("CauHoiHinhAnh", cauHoi);
             ViewBag.QuestionCount = cauHoi.Count;
             return View(cauHoi[0]);
