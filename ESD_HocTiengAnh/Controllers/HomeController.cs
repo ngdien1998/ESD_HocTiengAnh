@@ -1,5 +1,7 @@
 ﻿using ESD_HocTiengAnh.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ESD_HocTiengAnh.Controllers
@@ -48,31 +50,47 @@ namespace ESD_HocTiengAnh.Controllers
             return View(chuDe);
         }
 
-        [Route("kiem-tra/{id}/{level}")]
-        public IActionResult DoTest([FromRoute(Name = "id")] int? idChuDe, string level)
+        [Route("trac-nghiem-chu-de/{id}")]
+        public IActionResult TracNghiem([FromRoute(Name = "id")] int? idChuDe)
         {
-            if (idChuDe == null)
+            var data = CauHoiTracNghiem.Data.FindAll(e => e.IdChuDe == idChuDe);
+            HttpContext.Session.Set("CauHoi", data);
+            ViewBag.QuestionCount = data.Count;
+
+            var ranDom = new Random();
+            int index = ranDom.Next(data.Count);
+            return View(data[index]);
+        }
+
+        public IActionResult CauTiepTheo()
+        {
+            var ranDom = new Random();
+            var cauHoiTracNghiem = HttpContext.Session.Get<List<CauHoiTracNghiem>>("CauHoi");
+            if (cauHoiTracNghiem.Count <= 0)
             {
-                return BadRequest();
+                return Json(null);
             }
 
-            var chuDe = ChuDe.Data.Find(e => e.IdChude == idChuDe);
-            if (chuDe == null)
-            {
-                return NotFound();
-            }
+            int index = ranDom.Next(cauHoiTracNghiem.Count);
+            return Json(cauHoiTracNghiem[index]);
+        }
 
-            switch (level)
+        public IActionResult KiemTra(int idCauHoi, int traLoi)
+        {
+            var cauHoiTracNghiem = HttpContext.Session.Get<List<CauHoiTracNghiem>>("CauHoi");
+
+            var cauHoi = cauHoiTracNghiem.Find(e => e.IdCauHoi == idCauHoi);
+            if (cauHoi != null)
             {
-                case "co-ban":
-                    return View("TracNghiem", chuDe.CacCauHoiTracNghiemThuong);
-                case "trung-binh":
-                    return View("TracNghiem", chuDe.CacCauHoiTracNghiemNangCao);
-                case "nang-cao":
-                    return View("DichNghia", chuDe.CacCauHoiDichNghia);
-                default:
-                    return BadRequest();
+                cauHoiTracNghiem.Remove(cauHoi);
+                HttpContext.Session.Set("CauHoi", cauHoiTracNghiem);
+
+                if (cauHoi.CauTraLoiDung == (char)traLoi)
+                {
+                    return Json(new { ketQua = true });
+                }
             }
+            return Json(new { ketQua = false });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

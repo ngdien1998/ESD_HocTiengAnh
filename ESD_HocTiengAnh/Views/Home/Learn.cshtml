@@ -10,9 +10,7 @@
         </div>
         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
             <div class="content" style="text-align: center; margin-top: 50%">
-                <a class="btn btn-primary" style="width:210px;font-size:18px;margin-bottom:4px;" asp-action="DoTest" asp-route-id="@Model.IdChude" asp-route-level="co-ban">Cơ bản</a>
-                <a class="btn btn-success" style="width:260px;font-size:20px;margin-bottom:4px;" asp-action="DoTest" asp-route-id="@Model.IdChude" asp-route-level="trung-binh">Trung bình</a>
-                <a class="btn btn-danger" style="width:330px;font-size:28px;margin-bottom:4px;" asp-action="DoTest" asp-route-id="@Model.IdChude" asp-route-level="nang-cao">Nâng cao</a>
+                <a asp-action="@nameof(HomeController.TracNghiem)" asp-route-id="@Model.IdChude">Học từ ngay</a>
                 <h1 class="display-4">Chọn cấp độ</h1>
             </div>
         </div>

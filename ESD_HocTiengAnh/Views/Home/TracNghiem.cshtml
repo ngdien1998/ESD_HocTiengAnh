@@ -1,7 +1,228 @@
-﻿@model List<CauHoiTracNghiem>
+﻿@model CauHoiTracNghiem
 @{
-    ViewData["Title"] = "TracNghiem";
+    ViewData["Title"] = "Trac Nghiem";
 }
 
-<h1>TracNghiem</h1>
+<link href="https://fonts.googleapis.com/css?family=Chewy&display=swap" rel="stylesheet">
 
+<style>
+    #question {
+        position: absolute;
+        width: 600px;
+        height: 200px;
+        top: 130px;
+        left: 120px;
+    }
+
+    #question-content #request {
+        font-size: 28px;
+        color: wheat;
+    }
+
+    #question-content #question-content-main {
+        font-size: 36px;
+        color: white;
+        padding-top: 8px;
+        font-family: Arial;
+    }
+
+    #question-content, #main-q {
+        font-family: 'Chewy', cursive;
+    }
+
+    #main-q {
+        letter-spacing: 3px;
+        font-size: 46px;
+        cursor: pointer;
+    }
+
+    #parent {
+        background-image: url('/images/img_back_1.jpg');
+        height: 575px;
+        margin-top: 16px;
+        border-radius: 16px;
+        padding: 16px;
+        position: relative;
+    }
+
+    #speaker {
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 67px;
+        right: 260px;
+        background-color: white;
+        padding: 4px;
+        border-radius: 6px;
+    }
+
+    .answer {
+        position: absolute;
+        font-size: 32px;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    #ans-a {
+        bottom: 100px;
+        left: 70px;
+    }
+
+    #ans-b {
+        bottom: 100px;
+        left: 500px;
+    }
+
+    #ans-c {
+        bottom: 30px;
+        left: 70px;
+    }
+
+    #ans-d {
+        bottom: 30px;
+        left: 500px;
+    }
+
+    #progress {
+        width: 590px;
+        position: absolute;
+        top: 85px;
+        left: 190px;
+    }
+
+    #q-number {
+        font-family: 'Chewy', cursive;
+        font-size: 32px;
+        color: white;
+        position: absolute;
+        top: 68px;
+        left: 118px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    }
+</style>
+
+<div id="page">
+    <audio id="correct-ans-audio">
+        <source src="~/audio/Correct-answer.mp3" type="audio/mp3" />
+    </audio>
+
+    <audio id="incorrect-ans-audio">
+        <source src="~/audio/Wrong-answer-sound-effect.mp3" type="audio/mp3" />
+    </audio>
+
+    <div id="parent">
+        <div id="q-number">0/@ViewBag.QuestionCount</div>
+
+        <div class="progress" id="progress">
+            <div class="progress-bar progress-bar-striped bg-warning" id="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <div id="question">
+            <div id="question-content">
+                <div id="request">What does this word mean? Choose your answer</div>
+                <div id="question-content-main">
+                    The word <span id="main-q">@Model.NoiDung</span> means:
+                </div>
+            </div>
+        </div>
+
+        <div id="ans-a" class="answer" onclick="checkQuestion(@Model.IdCauHoi, 'A')">
+            <span>A.</span>
+            <span id="content-a">@Model.CacCauTraLoi['A']</span>
+        </div>
+        <div id="ans-b" class="answer" onclick="checkQuestion(@Model.IdCauHoi, 'B')">
+            <span>B.</span>
+            <span id="content-b">@Model.CacCauTraLoi['B']</span>
+        </div>
+        <div id="ans-c" class="answer" onclick="checkQuestion(@Model.IdCauHoi, 'C')">
+            <span>C.</span>
+            <span id="content-c">@Model.CacCauTraLoi['C']</span>
+        </div>
+        <div id="ans-d" class="answer" onclick="checkQuestion(@Model.IdCauHoi, 'D')">
+            <span>D.</span>
+            <span id="content-d">@Model.CacCauTraLoi['D']</span>
+        </div>
+
+        <img src="~/images/loudspeaker.png" alt="Speaker" id="speaker" />
+    </div>
+
+    <audio id="speech" hidden />
+</div>
+
+@section Scripts {
+    <script>
+        var x = document.getElementById("correct-ans-audio");
+        var y = document.getElementById("incorrect-ans-audio");
+        var sound = true;
+        var countQ = @ViewBag.QuestionCount;
+        var dem = 0;
+
+        function playRightAns() {
+            x.play();
+        }
+
+        function playWrongAns() {
+            y.play();
+        }
+
+        function checkQuestion(idCauHoi, traLoi) {
+            $.get("/Home/KiemTra", {
+                idCauHoi: idCauHoi,
+                traLoi: traLoi.charCodeAt(0)
+            }, data => {
+                if (data.ketQua == true) {
+                    playRightAns();
+                } else {
+                    playWrongAns();
+                }
+
+                dem++;
+                    $("#progress-bar").css("width", ((dem * 100) / countQ) + "%");
+                    $("#q-number").html(dem + "/" + countQ);
+
+                setTimeout(() => {
+                    $.get("/Home/CauTiepTheo", {}, data => {
+                        if (data === null) {
+                            window.location.href = "/chu-de/@Model.IdChuDe/@Model.ChuDe.TenChuDe.ToUrlFriendly()";
+                            return;
+                        }
+
+                        $("#main-q").html(data.noiDung);
+
+                        $("#content-a").html(data.cacCauTraLoi.A);
+                        $("#content-b").html(data.cacCauTraLoi.B);
+                        $("#content-c").html(data.cacCauTraLoi.C);
+                        $("#content-d").html(data.cacCauTraLoi.D);
+
+                        $("#ans-a").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'A')");
+                        $("#ans-b").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'B')");
+                        $("#ans-c").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'C')");
+                        $("#ans-d").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'D')");
+                    });
+                }, 2000);
+            });
+        }
+
+        $("#speaker").click(() => {
+            if (sound === true) {
+                $("#speaker").attr("src", "/images/loudspeaker_mute.png");
+            } else {
+                $("#speaker").attr("src", "/images/loudspeaker.png");
+            }
+            sound = !sound;
+        });
+
+        $("#main-q").click(() => {
+            var text = $("#main-q").html();
+            var url = "http://translate.google.com/translate_tts?tl=en&q=" + text + "&client=tw-ob";
+            $("#speech").attr("src", url).get(0).play();
+        });
+    </script>
+}

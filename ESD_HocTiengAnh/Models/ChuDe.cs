@@ -10,17 +10,6 @@ namespace ESD_HocTiengAnh.Models
         public string MoTa { get; set; }
         public string HinhAnh { get; set; }
 
-        public virtual List<CauHoiTracNghiem> CacCauHoiTracNghiemThuong => 
-            CauHoiTracNghiem.Data.Where(e => e.LoaiTracNghiem == LoaiTracNghiem.CoBan && e.IdChuDe == IdChude)
-            .ToList();
-
-        public virtual List<CauHoiTracNghiem> CacCauHoiTracNghiemNangCao =>
-            CauHoiTracNghiem.Data.Where(e => e.LoaiTracNghiem == LoaiTracNghiem.NangCao && e.IdChuDe == IdChude)
-            .ToList();
-
-        public virtual List<CauHoiDichNghia> CacCauHoiDichNghia =>
-            CauHoiDichNghia.Data.Where(e => e.IdChuDe == IdChude).ToList();
-
         public static List<ChuDe> Data = new List<ChuDe>
         {
             new ChuDe

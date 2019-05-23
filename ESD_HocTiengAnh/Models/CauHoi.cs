@@ -6,6 +6,6 @@
         public string NoiDung { get; set; }
         public int IdChuDe { get; set; }
 
-        public virtual ChuDe ChuDe => ChuDe.Data.Find(e => e.IdChude == IdChuDe);
+        public ChuDe ChuDe => ChuDe.Data.Find(e => e.IdChude == IdChuDe);
     }
 }
