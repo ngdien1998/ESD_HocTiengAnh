@@ -172,6 +172,24 @@
             y.play();
         }
 
+        function speakText(text) {
+            var url = "http://translate.google.com/translate_tts?tl=en&q=" + text + "&client=tw-ob";
+            $("#speech").attr("src", url).get(0).play();
+        }
+
+    function randomRequirement() {
+        var required = [
+            "Tell me your answer",
+            "Do you know this work",
+            "Choose one of four answer below",
+            "Let's try!"
+        ];
+        var index = Math.floor(Math.random() * required.length);
+        return required[index];
+    }
+
+    $(document).ready(() => speakText("What does @Model.NoiDung means. " + randomRequirement()));
+
         function checkQuestion(idCauHoi, traLoi) {
             $.get("/Home/KiemTra", {
                 idCauHoi: idCauHoi,
@@ -193,6 +211,8 @@
                             window.location.href = "/chu-de/@Model.IdChuDe/@Model.ChuDe.TenChuDe.ToUrlFriendly()";
                             return;
                         }
+
+                        speakText("What does " + data.noiDung + " means." + randomRequirement());
 
                         $("#main-q").html(data.noiDung);
 
@@ -221,8 +241,7 @@
 
         $("#main-q").click(() => {
             var text = $("#main-q").html();
-            var url = "http://translate.google.com/translate_tts?tl=en&q=" + text + "&client=tw-ob";
-            $("#speech").attr("src", url).get(0).play();
+            speakText(text);
         });
     </script>
 }

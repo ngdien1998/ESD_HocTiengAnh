@@ -53,7 +53,7 @@ namespace ESD_HocTiengAnh.Controllers
         [Route("trac-nghiem-chu-de/{id}")]
         public IActionResult TracNghiem([FromRoute(Name = "id")] int? idChuDe)
         {
-            var data = CauHoiTracNghiem.Data.FindAll(e => e.IdChuDe == idChuDe);
+            var data = CauHoiTracNghiem.Data.FindAll(e => e.IdChuDe == idChuDe).ShuffleTake(10);
             HttpContext.Session.Set("CauHoi", data);
             ViewBag.QuestionCount = data.Count;
 
