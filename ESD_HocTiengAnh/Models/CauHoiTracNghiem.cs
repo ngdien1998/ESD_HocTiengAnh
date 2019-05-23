@@ -100,7 +100,8 @@ namespace ESD_HocTiengAnh.Models
                     { 'D', "Cái thước kẻ" },
                 },
                 CauTraLoiDung = 'A',
-                LoaiTracNghiem = LoaiTracNghiem.CoBan
+                LoaiTracNghiem = LoaiTracNghiem.CoBan,
+                Image = "/images/earser.jpg"
             },
         };
     }

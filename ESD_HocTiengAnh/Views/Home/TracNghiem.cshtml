@@ -106,6 +106,15 @@
         height: 100%;
         background: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
     }
+
+    #img-desc {
+           position: absolute;
+    bottom: 16px;
+    right: 90px;
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    }
 </style>
 
 <div id="page">
@@ -151,6 +160,15 @@
         </div>
 
         <img src="~/images/loudspeaker.png" alt="Speaker" id="speaker" />
+
+        @if (Model.Image != null)
+        {
+            <img src="@Model.Image" alt="@Model.NoiDung" id="img-desc" />
+        }
+        else
+        {
+            <img id="img-desc" style="display:none;" />
+        }
     </div>
 
     <audio id="speech" hidden />
@@ -225,6 +243,14 @@
                         $("#ans-b").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'B')");
                         $("#ans-c").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'C')");
                         $("#ans-d").attr("onclick", "checkQuestion(" + data.idCauHoi + ", 'D')");
+
+                        console.log(data);
+                        if (data.image != null) {
+                            $("#img-desc").attr("src", data.image);
+                            $("#img-desc").css("display", "block");
+                        } else {
+                            $("#img-desc").css("display", "none");
+                        }
                     });
                 }, 2000);
             });
