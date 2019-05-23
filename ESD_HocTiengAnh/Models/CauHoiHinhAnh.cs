@@ -31,7 +31,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/ca-map.PNG",
                     "/images/con-ga.PNG"
                 },
-                CauTraLoiDung = 1
+                CauTraLoiDung = 0
             },
             new CauHoiHinhAnh
             {
@@ -51,7 +51,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/ca-heo.PNG",
                     "/images/con-ruoi.PNG"
                 },
-                CauTraLoiDung = 8
+                CauTraLoiDung = 7
             },
             new CauHoiHinhAnh
             {
@@ -71,7 +71,7 @@ namespace ESD_HocTiengAnh.Models
                     "images/con-vit.PNG",
                     "images/con-buom.PNG",
                 },
-                CauTraLoiDung = 7
+                CauTraLoiDung = 6
             },
             new CauHoiHinhAnh
             {
@@ -91,7 +91,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/ca-heo.PNG",
                     "/images/con-ruoi.PNG"
                 },
-                CauTraLoiDung =3
+                CauTraLoiDung = 2
             },
             new CauHoiHinhAnh
             {
@@ -111,7 +111,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-ho.PNG",
                     "/images/con-chuot.PNG",
                 },
-                CauTraLoiDung = 5
+                CauTraLoiDung = 4
             },
             new CauHoiHinhAnh
             {
@@ -131,7 +131,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-trau.PNG",
                     "/images/con-chon.PNG",
                 },
-                CauTraLoiDung = 4
+                CauTraLoiDung = 3
             },
             new CauHoiHinhAnh
             {
@@ -151,7 +151,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-ruoi.PNG",
                     "/images/con-gau.PNG",
                 },
-                CauTraLoiDung = 5
+                CauTraLoiDung = 4
             },
             new CauHoiHinhAnh
             {
@@ -171,7 +171,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-ho.PNG",
                     "/images/con-chuot.PNG",
                 },
-                CauTraLoiDung = 10
+                CauTraLoiDung = 9
             },
             new CauHoiHinhAnh
             {
@@ -191,7 +191,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/ca-map.PNG",
                     "/images/con-ga.PNG"
                 },
-                CauTraLoiDung = 8
+                CauTraLoiDung = 7
             },
             new CauHoiHinhAnh
             {
@@ -211,10 +211,10 @@ namespace ESD_HocTiengAnh.Models
                     "/images/ca-heo.PNG",
                     "/images/con-ruoi.PNG"
                 },
-                CauTraLoiDung = 4
+                CauTraLoiDung = 3
             },
             //Chu de 3
-             new CauHoiHinhAnh
+            new CauHoiHinhAnh
              {
                 IdCauHoi = 1,
                 IdChuDe = 3,
@@ -232,9 +232,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-qua-chuoi.PNG",
                     "/images/d-sua.PNG"
                 },
-                CauTraLoiDung = 3
+                CauTraLoiDung = 2
              },
-               new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 2,
                 IdChuDe = 3,
@@ -252,9 +252,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-ga.PNG",
                     "/images/d-keo.PNG"
                 },
-                CauTraLoiDung = 7
+                CauTraLoiDung = 6
              },
-                new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 3,
                 IdChuDe = 3,
@@ -272,9 +272,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-qua-xoai.PNG",
                     "/images/d-banh-mi.PNG"
                 },
-                CauTraLoiDung = 9
+                CauTraLoiDung = 8
              },
-                 new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 4,
                 IdChuDe = 3,
@@ -292,9 +292,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-qua-ot.PNG",
                     "/images/d-qua-cam.PNG"
                 },
-                CauTraLoiDung = 5
+                CauTraLoiDung = 4
              },
-                  new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 5,
                 IdChuDe = 3,
@@ -312,9 +312,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-thit-bo.PNG",
                     "/images/d-ca-cao.PNG"
                 },
-                CauTraLoiDung = 3
+                CauTraLoiDung = 4
              },
-                   new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 6,
                 IdChuDe = 3,
@@ -332,9 +332,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-dau-cove.PNG",
                     "/images/d-pizza.PNG"
                 },
-                CauTraLoiDung = 9
+                CauTraLoiDung = 8
              },
-                    new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 7,
                 IdChuDe = 3,
@@ -352,9 +352,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-ga.PNG",
                     "/images/d-ca-phe.PNG"
                 },
-                CauTraLoiDung = 2
+                CauTraLoiDung = 1
              },
-                     new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 8,
                 IdChuDe = 3,
@@ -372,9 +372,9 @@ namespace ESD_HocTiengAnh.Models
                     "/images/con-ga.PNG",
                     "/images/d-qua-ot.PNG"
                 },
-                CauTraLoiDung = 8
+                CauTraLoiDung = 7
              },
-                      new CauHoiHinhAnh
+            new CauHoiHinhAnh
                {
                 IdCauHoi = 9,
                 IdChuDe = 3,
@@ -392,10 +392,10 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-qua-chanh.PNG",
                     "/images/d-ca-phe.PNG"
                 },
-                CauTraLoiDung = 9
+                CauTraLoiDung = 8
              },
-                       new CauHoiHinhAnh
-               {
+            new CauHoiHinhAnh
+            {
                 IdCauHoi = 10,
                 IdChuDe = 3,
                 NoiDung = "pork",
@@ -412,9 +412,8 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-qua-tao.PNG",
                     "/images/d-banh-mi.PNG"
                 },
-                CauTraLoiDung = 5
-             },
-
+                CauTraLoiDung = 4
+            },
         };
     }
 }
