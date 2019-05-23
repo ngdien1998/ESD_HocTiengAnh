@@ -213,7 +213,7 @@ namespace ESD_HocTiengAnh.Models
                 },
                 CauTraLoiDung = 3
             },
-            //Chu de 3
+            //Chu de 3: rau qua
             new CauHoiHinhAnh
              {
                 IdCauHoi = 1,
