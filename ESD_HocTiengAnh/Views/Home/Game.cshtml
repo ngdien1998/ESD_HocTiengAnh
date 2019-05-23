@@ -191,6 +191,9 @@
             }, 150);
 
             timmer = setInterval(() => {
+                score -= 2;
+                $("#score").html("Score: " + score);
+
                 var dem = 0;
                 for (var i = 0; i < flags.length; i++) {
                     if (flags[i] === -1) {
@@ -242,7 +245,7 @@
                 $("#q-num").html(qNum + "/" + @ViewBag.QuestionCount);
                 $.get("/Home/NextQuestion", {}, data => {
                     if (data != null) {
-                        $("#question").html(data.noiDung);
+                        $("#question").html('<div id="question" onclick="speakText(Choose the image of ' + data.noiDung + ')">' + data.noiDung + '</div>');
                         $("#ans-imgs").html("");
                         for (var i = 0; i < data.images.length; i++) {
                             console.log(data.images[i]);
@@ -259,6 +262,8 @@
                     }
                 });
             } else {
+                score -= 5;
+                $("#score").html("Score: " + score);
                 var index = Math.floor(Math.random() * incorrect.length);
                 speakText(incorrect[index]);
             }

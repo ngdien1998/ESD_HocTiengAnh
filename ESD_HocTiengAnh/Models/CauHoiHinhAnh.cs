@@ -60,16 +60,16 @@ namespace ESD_HocTiengAnh.Models
                 NoiDung = "tiger",
                 Images = new List<string>
                 {
-                    "images/con-ga.PNG",
-                    "images/con-te-giac.PNG",
-                    "images/ca-sau.PNG",
-                    "images/con-gau.PNG",
-                    "images/con-meo.PNG",
-                    "images/con-chuot.PNG",
-                    "images/con-ho.PNG",
-                    "images/con-tho.PNG",
-                    "images/con-vit.PNG",
-                    "images/con-buom.PNG",
+                    "/images/con-ga.PNG",
+                    "/images/con-te-giac.PNG",
+                    "/images/ca-sau.PNG",
+                    "/images/con-gau.PNG",
+                    "/images/con-meo.PNG",
+                    "/images/con-chuot.PNG",
+                    "/images/con-ho.PNG",
+                    "/images/con-tho.PNG",
+                    "/images/con-vit.PNG",
+                    "/images/con-buom.PNG",
                 },
                 CauTraLoiDung = 6
             },
@@ -312,7 +312,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-thit-bo.PNG",
                     "/images/d-ca-cao.PNG"
                 },
-                CauTraLoiDung = 4
+                CauTraLoiDung = 2
              },
             new CauHoiHinhAnh
                {
