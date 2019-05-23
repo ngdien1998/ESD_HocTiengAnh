@@ -93,6 +93,36 @@ namespace ESD_HocTiengAnh.Controllers
             return Json(new { ketQua = false });
         }
 
+        public IActionResult Game([FromRoute(Name = "id")] int idChuDe)
+        {
+            var cauHoi = CauHoiHinhAnh.Data.ShuffleTake(10);
+            HttpContext.Session.Set("CauHoiHinhAnh", cauHoi);
+            return View(cauHoi[0]);
+        }
+
+        public IActionResult TraLoiHinh(int idCauHoi, int traLoi)
+        {
+            var cauHoiHinhAnh = HttpContext.Session.Get<List<CauHoiHinhAnh>>("CauHoiHinhAnh");
+            var cauHoi = cauHoiHinhAnh.Find(e => e.IdCauHoi == idCauHoi);
+            bool right = cauHoi.CauTraLoiDung == traLoi;
+            if (right)
+            {
+                cauHoiHinhAnh.Remove(cauHoi);
+                HttpContext.Session.Set("CauHoiHinhAnh", cauHoiHinhAnh);
+            }
+            return Json(new { Right = right });
+        }
+
+        public IActionResult NextQuestion()
+        {
+            var cauHoiHinhAnh = HttpContext.Session.Get<List<CauHoiHinhAnh>>("CauHoiHinhAnh");
+            if (cauHoiHinhAnh != null && cauHoiHinhAnh.Count > 0)
+            {
+                return Json(cauHoiHinhAnh[0]);
+            }
+            return Json(null);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
