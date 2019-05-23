@@ -312,7 +312,7 @@ namespace ESD_HocTiengAnh.Models
                     "/images/d-thit-bo.PNG",
                     "/images/d-ca-cao.PNG"
                 },
-                CauTraLoiDung = 4
+                CauTraLoiDung = 2
              },
             new CauHoiHinhAnh
                {
