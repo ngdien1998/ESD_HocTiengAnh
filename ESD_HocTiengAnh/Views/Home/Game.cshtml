@@ -20,6 +20,7 @@
         border-radius: 6px;
         font-family: 'Chewy', cursive;
         font-size: 32px;
+        cursor: pointer;
     }
 
     #ans-imgs {
@@ -30,6 +31,8 @@
 
     .ans-img {
         position: absolute;
+        width: 144px;
+        height: 144px;
     }
 
         .ans-img:hover {
@@ -102,10 +105,34 @@
         width: 100%;
         height: 50px;
     }
+
+    #status {
+        position: relative;
+    }
+
+    #q-num, #score {
+        font-family: 'Chewy', cursive;
+        font-size: 32px;
+        position: absolute;
+    }
+
+    #q-num {
+        top: -70px;
+        left: 285px;
+    }
+
+    #score {
+        top: -70px;
+        right: 220px;
+    }
 </style>
 
 <div id="page">
-    <div id="question">alarm clock</div>
+    <div id="question" onclick="speakText('Choose the image of @Model.NoiDung')">@Model.NoiDung</div>
+    <div id="status">
+        <div id="q-num">0/@ViewBag.QuestionCount</div>
+        <div id="score">Score: 0</div>
+    </div>
     <div id="ans-imgs">
         @for (var i = 0; i < Model.Images.Count; i++)
         {
@@ -120,6 +147,29 @@
     <audio id="speech" hidden />
 </div>
 
+<!-- Button trigger modal -->
+<button type="button" id="showMsg" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden></button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Game over</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Game over
+            </div>
+            <div class="modal-footer">
+                <a asp-action="@nameof(HomeController.Learn)" asp-route-id="@Model.ChuDe.IdChude" asp-route-name="@Model.ChuDe.TenChuDe.ToUrlFriendly()" class="btn btn-secondary">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts
 {
     <script>
@@ -127,6 +177,8 @@
     var incorrect = ["Incorrect", "You're wrong", "Choose other"];
     var rightAns = @Model.CauTraLoiDung;
     var progressTimmer, timmer;
+    var score = 0;
+    var qNum = 0;
     startQuestion(rightAns);
 
         function startQuestion(rightAns) {
@@ -148,7 +200,8 @@
                 if (dem === 9) {
                     clearInterval(timmer);
                     clearInterval(progressTimmer);
-                    alert("Game over");
+
+                    $("#showMsg").click();
                     return;
                 }
 
@@ -172,7 +225,7 @@
         function speakText(text) {
             var url = "http://translate.google.com/translate_tts?tl=en&q=" + text + "&client=tw-ob";
             $("#speech").attr("src", url).get(0).play();
-        }
+    }
 
     function checkQuestion(idCauHoi, traLoi) {
         $.get("/Home/TraLoiHinh", {
@@ -183,19 +236,26 @@
                 var index = Math.floor(Math.random() * correct.length);
                 speakText(correct[index]);
                 stopQuestion();
+                score += 10;
+                qNum += 1;
+                $("#score").html("Score: " + score);
+                $("#q-num").html(qNum + "/" + @ViewBag.QuestionCount);
                 $.get("/Home/NextQuestion", {}, data => {
                     if (data != null) {
-                        console.log(data.images);
+                        $("#question").html(data.noiDung);
                         $("#ans-imgs").html("");
                         for (var i = 0; i < data.images.length; i++) {
                             console.log(data.images[i]);
-                            var html = '<img src="' + data.images[i] + '" class="ans-img" id="ans-img-' + i + '" onclick="checkQuestion(' + data.idCauHoi+ ', ' +  i + ')" />';
+                            var html = '<img src="' + data.images[i] + '" class="ans-img" id="ans-img-' + i + '" onclick="checkQuestion(' + data.idCauHoi + ', ' + i + ')" />';
                             $("#ans-imgs").append(html);
                         }
                         $("#progress-bar").css("width", "100%");
                         $("#question").html(data.noiDung);
 
                         startQuestion(data.cauTraLoiDung);
+                    } else {
+                        $(".modal-body").html("Bạn đã hoàn tất trò chơi với số điểm " + score + "/" + (10 * @ViewBag.QuestionCount));
+                        $("#showMsg").click();
                     }
                 });
             } else {

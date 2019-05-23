@@ -97,6 +97,7 @@ namespace ESD_HocTiengAnh.Controllers
         {
             var cauHoi = CauHoiHinhAnh.Data.ShuffleTake(10);
             HttpContext.Session.Set("CauHoiHinhAnh", cauHoi);
+            ViewBag.QuestionCount = cauHoi.Count;
             return View(cauHoi[0]);
         }
 
