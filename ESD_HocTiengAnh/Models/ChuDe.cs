@@ -22,7 +22,7 @@ namespace ESD_HocTiengAnh.Models
             new ChuDe
             {
                 IdChude = 2,
-                TenChuDe = "Thời tiết",
+                TenChuDe = "Thiên nhiên",
                 MoTa = "",
                 HinhAnh = "~/images/4.jpg"
             },
@@ -71,7 +71,7 @@ namespace ESD_HocTiengAnh.Models
             new ChuDe
             {
                 IdChude = 9,
-                TenChuDe = "Trường học",
+                TenChuDe = "Môn học",
                 MoTa = "",
                 HinhAnh = "~/images/7.jpg"
             },
